@@ -24,6 +24,7 @@ public class Execute
 
             await _brokerService.NewTopicMessageAsync("sensor.temperature.livingroom");
             await _brokerService.NewFunoutMessageAsync();
+            await _brokerService.NewHeadersMessageAsync();
         }
     }
 }

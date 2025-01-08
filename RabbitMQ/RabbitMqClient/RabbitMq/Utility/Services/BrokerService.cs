@@ -75,6 +75,47 @@ public class BrokerService : IBrokerService
         }
     }
     
+    public async IAsyncEnumerable<string> GetMessagesByHeadersAsync(Dictionary<string, object> headers)
+    {
+        var factory = new ConnectionFactory() { HostName = "localhost" };
+        using var connection = await factory.CreateConnectionAsync();
+        using var channel = await connection.CreateChannelAsync();
+
+        await channel.ExchangeDeclareAsync(exchange: "headers-exchange", type: ExchangeType.Headers);
+
+        var queueName = (await channel.QueueDeclareAsync()).QueueName;
+
+        await channel.QueueBindAsync(queue: queueName,
+            exchange: "headers-exchange",
+            routingKey: string.Empty,
+            headers);
+
+        var consumer = new AsyncEventingBasicConsumer(channel);
+
+        var queueMessage = new Queue<string>();
+        
+        consumer.Received += async (sender, e) =>
+        {
+            var body = e.Body;
+            var message = Encoding.UTF8.GetString(body.ToArray());
+            queueMessage.Enqueue(message);
+        };
+
+        await channel.BasicConsumeAsync(queue: queueName,
+            autoAck: true,
+            consumer: consumer);
+
+        Console.WriteLine($"Subscribed to the queue '{queueName}'");
+
+        while (true)
+        {
+            if (queueMessage.Count > 0)
+            {
+                yield return queueMessage.Dequeue();
+            }
+        }
+    }
+    
     public async IAsyncEnumerable<string> GetMessagesByTopicAsync(string routingKey)
     {
         var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -209,5 +250,28 @@ public class BrokerService : IBrokerService
         var body = Encoding.UTF8.GetBytes(message);
 
         await channel.BasicPublishAsync("funout-exchange", String.Empty, true, body);
+    }
+    
+    public async Task NewHeadersMessageAsync()
+    {
+        var factory = new ConnectionFactory() { HostName = _brokerHostString };
+
+        using var connection = await factory.CreateConnectionAsync();
+        using var channel = await connection.CreateChannelAsync();
+        await channel.ExchangeDeclareAsync(exchange: "headers-exchange", ExchangeType.Headers);
+
+        var headers = new Dictionary<string, object>()
+        {
+            {"header1","type-script"},
+            {"header2","rust"}
+        };
+
+        var properties = new BasicProperties();
+        properties.Headers = headers;
+
+        var message = "You are wining " + new Random().Next(0, int.MaxValue) + $"$ / routing key:headers";
+        var body = Encoding.UTF8.GetBytes(message);
+
+        await channel.BasicPublishAsync("headers-exchange", String.Empty, true, properties,body);
     }
 }
