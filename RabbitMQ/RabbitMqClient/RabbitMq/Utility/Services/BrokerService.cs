@@ -156,18 +156,18 @@ public class BrokerService : IBrokerService
         }
     }
     
-    public async IAsyncEnumerable<string> GetMessagesByFunoutAsync()
+    public async IAsyncEnumerable<string> GetMessagesByFanoutAsync()
     {
         var factory = new ConnectionFactory() { HostName = "localhost" };
         using var connection = await factory.CreateConnectionAsync();
         using var channel = await connection.CreateChannelAsync();
 
-        await channel.ExchangeDeclareAsync(exchange: "funout-exchange", type: ExchangeType.Fanout);
+        await channel.ExchangeDeclareAsync(exchange: "fanout-exchange", type: ExchangeType.Fanout);
 
         var queueName = (await channel.QueueDeclareAsync()).QueueName;
 
         await channel.QueueBindAsync(queue: queueName,
-            exchange: "funout-exchange",
+            exchange: "fanout-exchange",
             routingKey: string.Empty);
 
         var consumer = new AsyncEventingBasicConsumer(channel);
@@ -238,18 +238,18 @@ public class BrokerService : IBrokerService
         await channel.BasicPublishAsync("topic-exchange", routingKey, true, body);
     }
     
-    public async Task NewFunoutMessageAsync()
+    public async Task NewFanoutMessageAsync()
     {
         var factory = new ConnectionFactory() { HostName = _brokerHostString };
 
         using var connection = await factory.CreateConnectionAsync();
         using var channel = await connection.CreateChannelAsync();
-        await channel.ExchangeDeclareAsync(exchange: "funout-exchange", ExchangeType.Fanout);
+        await channel.ExchangeDeclareAsync(exchange: "fanout-exchange", ExchangeType.Fanout);
 
         var message = "You are wining " + new Random().Next(0, int.MaxValue) + $"$ / routing key:fanout";
         var body = Encoding.UTF8.GetBytes(message);
 
-        await channel.BasicPublishAsync("funout-exchange", String.Empty, true, body);
+        await channel.BasicPublishAsync("fanout-exchange", String.Empty, true, body);
     }
     
     public async Task NewHeadersMessageAsync()

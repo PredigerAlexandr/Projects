@@ -23,7 +23,7 @@ public class Execute
             await _brokerService.NewDirectMessageAsync("log");
 
             await _brokerService.NewTopicMessageAsync("sensor.temperature.livingroom");
-            await _brokerService.NewFunoutMessageAsync();
+            await _brokerService.NewFanoutMessageAsync();
             await _brokerService.NewHeadersMessageAsync();
         }
     }

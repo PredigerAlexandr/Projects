@@ -7,9 +7,9 @@ public interface IBrokerService
     Task NewDirectMessageAsync(string routingKey);
     Task NewTopicMessageAsync(string routingKey);
     Task NewHeadersMessageAsync();
-    Task NewFunoutMessageAsync();
+    Task NewFanoutMessageAsync();
     IAsyncEnumerable<string> GetMessagesByDirectAsync(string routingKey);
     IAsyncEnumerable<string> GetMessagesByTopicAsync(string routingKey);
-    IAsyncEnumerable<string> GetMessagesByFunoutAsync();
+    IAsyncEnumerable<string> GetMessagesByFanoutAsync();
     IAsyncEnumerable<string> GetMessagesByHeadersAsync(Dictionary<string, object> headers);
 }
