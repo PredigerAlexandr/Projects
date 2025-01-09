@@ -1,31 +1,50 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using MassTransit;
+﻿using MassTransit;
+using Microsoft.Extensions.DependencyInjection;
 using RabbitMq;
+using Utilities.Constants;
+using Utilities.Handlers;
+using Utilities.Interfaces;
+using Utilities.Models;
+using Utilities.Services;
 
-
-var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+class Program
 {
-    cfg.Host("rabbitmq://localhost"); // Укажите адрес вашего RabbitMQ
-
-    // Настройка exchange типа headers
-    cfg.Message<YourMessage>(x =>
+    static void Main(string[] args)
     {
-        x.SetEntityName("your_headers_exchange");
-    });
-});
+        var services = new ServiceCollection();
 
-// Запускаем шину
-await busControl.StartAsync();
-try
-{
-    // Отправляем сообщение
-    await busControl.Publish(new YourMessage { Text = "Hello, Headers Exchange!" });
-    Console.WriteLine("Сообщение отправлено в headers exchange!");
-}
-finally
-{
-    // Останавливаем шину
-    await busControl.StopAsync();
-}
+        services.AddMassTransit(x =>
+        {
+            //x.AddConsumer<MessageFanoutHandler>();
+            x.AddConsumer<MessageDirectHandler>();
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("localhost");
 
+                // cfg.ReceiveEndpoint("fanout-queue", e =>
+                //     e.ConfigureConsumer<MessageFanoutHandler>(context));
+                
+                cfg.ReceiveEndpoint("direct-queue", e =>
+                    {
+                        e.ConfigureConsumer<MessageDirectHandler>(context);
+                        e.Bind<DirectMessage>(x =>
+                            x.RoutingKey = RoutingKeyConstants.RoutingKey1);
+                    }
+                    );
+            });
+        });
+
+        services.AddScoped<IBrokerService, BrokerService>();
+        services.AddScoped<Execute>();
+
+        var serviceProvider = services.BuildServiceProvider();
+
+        var workClass = serviceProvider.GetService<Execute>();
+
+        while (true)
+        {
+            workClass!.Run().GetAwaiter().GetResult();
+            Thread.Sleep(1000);
+        }
+    }
+}
