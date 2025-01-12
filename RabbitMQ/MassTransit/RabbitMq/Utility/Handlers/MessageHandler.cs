@@ -3,9 +3,9 @@ using Utilities.Models;
 
 namespace Utilities.Handlers;
 
-public class MessageDirectHandler: IConsumer<DirectMessage>
+public class MessageHandler: IConsumer<Message>
 {
-    public Task Consume(ConsumeContext<DirectMessage> context)
+    public Task Consume(ConsumeContext<Message> context)
     {
         var message = context.Message;
         Console.WriteLine(message.Title);

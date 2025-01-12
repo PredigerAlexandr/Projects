@@ -13,28 +13,13 @@ public class BrokerService : IBrokerService
         _busControl = busControl;
     }
 
-    public async Task NewFanoutMessageAsync()
+    public async Task NewMessageAsync()
     {
         await _busControl.StartAsync();
         try
         {
-            await _busControl.Publish<DirectMessage>(new DirectMessage
+            await _busControl.Publish<Message>(new Message
                 { Title = "You are win " + new Random().Next(0, int.MaxValue) + "$ / fanout" });
-        }
-        finally
-        {
-            await _busControl.StopAsync();
-        }
-    }
-
-    public async Task NewDirectMessageAsync(string routingKey)
-    {
-        await _busControl.StartAsync();
-        try
-        {
-            await _busControl.Publish<DirectMessage>(new DirectMessage
-                    { Title = "You are win " + new Random().Next(0, int.MaxValue) + "$ / direct" },
-                context => { context.SetRoutingKey(routingKey); });
         }
         finally
         {

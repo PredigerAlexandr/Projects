@@ -15,7 +15,6 @@ public class Execute
 
     public async Task Run()
     {
-        await _brokerService.NewFanoutMessageAsync();
-        await _brokerService.NewDirectMessageAsync(RoutingKeyConstants.RoutingKey1);
+        await _brokerService.NewMessageAsync();
     }
 }

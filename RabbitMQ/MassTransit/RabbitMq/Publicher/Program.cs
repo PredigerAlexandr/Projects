@@ -15,22 +15,9 @@ class Program
 
         services.AddMassTransit(x =>
         {
-            //x.AddConsumer<MessageFanoutHandler>();
-            x.AddConsumer<MessageDirectHandler>();
             x.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host("localhost");
-
-                // cfg.ReceiveEndpoint("fanout-queue", e =>
-                //     e.ConfigureConsumer<MessageFanoutHandler>(context));
-                
-                cfg.ReceiveEndpoint("direct-queue", e =>
-                    {
-                        e.ConfigureConsumer<MessageDirectHandler>(context);
-                        e.Bind<DirectMessage>(x =>
-                            x.RoutingKey = RoutingKeyConstants.RoutingKey1);
-                    }
-                    );
             });
         });
 

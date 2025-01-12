@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq", "RabbitMq\RabbitMq.csproj", "{2618524B-968D-465C-BB59-1F639FE6BAA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Publicher", "Publicher\Publicher.csproj", "{2618524B-968D-465C-BB59-1F639FE6BAA1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{3C3839B1-226A-444F-A535-FD478D78A52E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "Consumer\Consumer.csproj", "{21AAA159-0C6F-46E2-97F8-2F13594F26C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{3C3839B1-226A-444F-A535-FD478D78A52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C3839B1-226A-444F-A535-FD478D78A52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C3839B1-226A-444F-A535-FD478D78A52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21AAA159-0C6F-46E2-97F8-2F13594F26C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21AAA159-0C6F-46E2-97F8-2F13594F26C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21AAA159-0C6F-46E2-97F8-2F13594F26C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21AAA159-0C6F-46E2-97F8-2F13594F26C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

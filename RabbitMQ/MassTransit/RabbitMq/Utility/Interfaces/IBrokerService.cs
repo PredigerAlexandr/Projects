@@ -2,6 +2,5 @@
 
 public interface IBrokerService
 {
-    Task NewFanoutMessageAsync();
-    Task NewDirectMessageAsync(string routingKey);
+    Task NewMessageAsync();
 }
