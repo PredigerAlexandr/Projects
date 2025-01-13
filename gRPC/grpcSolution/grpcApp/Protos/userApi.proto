@@ -1,0 +1,44 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "grpcUserApi";
+
+package userApi;
+
+import "google/protobuf/empty.proto";
+
+service GrpcUserApiService {
+  rpc ListUsers(google.protobuf.Empty) returns (ListReply);
+  rpc GetUser(GetUserRequest) returns (UserReply);
+  rpc CreateUser(CreateUserRequest) returns (UserReply);
+  rpc UpdateUser(UpdateUserRequest) returns (UserReply);
+  rpc DeleteUser(DeleteUserRequest) returns (UserReply);
+}
+
+message GetUserRequest{
+  string id = 1;
+}
+
+message CreateUserRequest{
+  string name = 1;
+  int32 age = 2;
+}
+
+message UpdateUserRequest{
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message DeleteUserRequest{
+  string id = 1;
+}
+
+message UserReply{
+  string id = 1;
+  string name = 2;
+  int32 age = 3;
+}
+
+message ListReply{
+  repeated UserReply users = 1;
+}
