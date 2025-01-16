@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR", "SignalR\SignalR.csproj", "{19A7201B-01E7-439F-8C8E-32279B652472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetClient", "DotNetClient\DotNetClient.csproj", "{0D1201C8-71FC-4CD9-8598-1200B6992D24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{2C388D3B-8C9A-40D1-8944-E615BE38D209}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19A7201B-01E7-439F-8C8E-32279B652472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19A7201B-01E7-439F-8C8E-32279B652472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19A7201B-01E7-439F-8C8E-32279B652472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19A7201B-01E7-439F-8C8E-32279B652472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1201C8-71FC-4CD9-8598-1200B6992D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1201C8-71FC-4CD9-8598-1200B6992D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1201C8-71FC-4CD9-8598-1200B6992D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1201C8-71FC-4CD9-8598-1200B6992D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C388D3B-8C9A-40D1-8944-E615BE38D209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C388D3B-8C9A-40D1-8944-E615BE38D209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C388D3B-8C9A-40D1-8944-E615BE38D209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C388D3B-8C9A-40D1-8944-E615BE38D209}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
