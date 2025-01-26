@@ -8,6 +8,6 @@ public class UserMapper:Profile
 {
     public UserMapper()
     {
-        CreateMap<User, UserEntity>();
+        CreateMap<User, UserEntity>().ReverseMap();
     }
 }

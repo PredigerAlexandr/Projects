@@ -4,12 +4,13 @@ using grpcApp.Application.Interfaces.IServices;
 using grpcApp.Application.Interfaces.Models;
 using grpcApp.Domain.Entities;
 
-namespace grpcApp.Application.Services;
+namespace GrpcApp.Application.Services;
 
-public class UserService:IUserService
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+
     public UserService(IUserRepository userRepository,
         IMapper mapper)
     {
@@ -17,26 +18,54 @@ public class UserService:IUserService
         _mapper = mapper;
     }
 
-    public async Task<Guid> AddAsync(User user)
+    public async Task<User> AddAsync(User user)
     {
         var userEntity = _mapper.Map<UserEntity>(user);
-        return await _userRepository.AddAsync(userEntity);
+        
+        await _userRepository.AddAsync(userEntity);
+        
+        var newUser = await _userRepository.GetAsync(user.Id);
+        
+        return _mapper.Map<User>(newUser);
     }
 
-    public Task DeleteAsync(Guid id)
+    public async Task<User> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var deleteEntity = await _userRepository.GetAsync(id);
+        
+        await _userRepository.DeleteAsync(id);
+        
+        return _mapper.Map<User>(deleteEntity);
     }
 
     public async Task<List<User>> ListAsync()
     {
         var entities = await _userRepository.ListAsync();
+        
         var result = _mapper.Map<List<User>>(entities);
+        
         return result;
     }
 
-    public Task UpdateAsync(User user)
+    public async Task<User> UpdateAsync(User user)
     {
-        throw new NotImplementedException();
+        var updateUserEntity = _mapper.Map<UserEntity>(user);
+        
+        await _userRepository.UpdateAsync(updateUserEntity);
+        
+        var updateModel = await _userRepository.GetAsync(user.Id);
+        
+        var result = _mapper.Map<User>(updateModel);
+        
+        return result;
+    }
+
+    public async Task<User> GetAsync(Guid id)
+    {
+        var user = await _userRepository.GetAsync(id);
+        
+        var result = _mapper.Map<User>(user);
+        
+        return result;
     }
 }

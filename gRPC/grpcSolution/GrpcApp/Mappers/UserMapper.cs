@@ -1,6 +1,6 @@
 using AutoMapper;
 using grpcApp.Application.Interfaces.Models;
-using grpcUserApi;
+using GrpcUserApi;
 
 namespace grpcApp.Mappers;
 

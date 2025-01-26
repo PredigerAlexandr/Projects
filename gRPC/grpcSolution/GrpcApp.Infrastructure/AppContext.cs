@@ -1,9 +1,9 @@
-﻿using grpcApp.DataAccess.Utility;
+﻿using GrpcApp.Infrastructure.Utility;
 using grpcApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace grpcApp.DataAccess;
+namespace GrpcApp.Infrastructure;
 
 public class AppContext:DbContext
 {
@@ -14,7 +14,7 @@ public class AppContext:DbContext
         Database.EnsureCreated();
     }
     
-    public DbSet<UserEntity> Users;
+    public DbSet<UserEntity> Users { get; set; }
  
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

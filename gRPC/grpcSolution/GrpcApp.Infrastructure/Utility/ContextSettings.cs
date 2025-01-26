@@ -1,4 +1,4 @@
-﻿namespace grpcApp.DataAccess.Utility;
+﻿namespace GrpcApp.Infrastructure.Utility;
 
 public class ContextSettings
 {

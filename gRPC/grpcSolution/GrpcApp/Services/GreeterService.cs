@@ -1,3 +1,4 @@
+using GreetApp;
 using Grpc.Core;
 
 namespace grpcApp.Services;

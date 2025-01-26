@@ -11,4 +11,6 @@ public interface IUserRepository
     public Task<List<UserEntity>> ListAsync();
 
     public Task UpdateAsync(UserEntity user);
+    
+    public Task<UserEntity> GetAsync(Guid id);
 }

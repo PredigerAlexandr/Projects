@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grpcApp", "grpcApp\grpcApp.csproj", "{F4A3B64E-68DD-40EA-9E74-6BBA7CB56F7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcApp", "GrpcApp\GrpcApp.csproj", "{F4A3B64E-68DD-40EA-9E74-6BBA7CB56F7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClient", "GrpcClient\GrpcClient.csproj", "{0490CA25-F477-41A0-ABA0-CF1A3004FEA2}"
 EndProject

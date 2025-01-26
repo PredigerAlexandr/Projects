@@ -1,8 +1,8 @@
 ﻿syntax = "proto3";
 
-option csharp_namespace = "grpcUserApiClient";
+option csharp_namespace = "GrpcUserApi";
 
-package grpcClient;
+package userApi;
 
 import "google/protobuf/empty.proto";
 

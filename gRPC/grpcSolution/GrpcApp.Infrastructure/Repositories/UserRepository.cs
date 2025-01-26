@@ -2,17 +2,17 @@
 using grpcApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace grpcApp.DataAccess.Repositories;
+namespace grpcApp.Infrastructure.Repositories;
 
-public class UserRepository:IUserRepository
+public class UserRepository : IUserRepository
 {
-    private readonly AppContext _context;
+    private readonly GrpcApp.Infrastructure.AppContext _context;
 
-    public UserRepository(AppContext appContext)
+    public UserRepository(GrpcApp.Infrastructure.AppContext appContext)
     {
         _context = appContext;
     }
-    
+
     public async Task<Guid> AddAsync(UserEntity user)
     {
         await _context.Users.AddAsync(user);
@@ -22,7 +22,13 @@ public class UserRepository:IUserRepository
 
     public async Task DeleteAsync(Guid id)
     {
-        
+        var deleteEntity = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (deleteEntity != null)
+        {
+            _context.Users.Remove(deleteEntity);
+            await _context.SaveChangesAsync();
+        }
     }
 
     public async Task<List<UserEntity>> ListAsync()
@@ -32,6 +38,19 @@ public class UserRepository:IUserRepository
 
     public async Task UpdateAsync(UserEntity user)
     {
-       
+        var updateEntity = await _context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
+
+        if (updateEntity != null)
+        {
+            updateEntity.Name = user.Name;
+            updateEntity.Age = user.Age;
+
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<UserEntity> GetAsync(Guid id)
+    {
+        return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
     }
 }
