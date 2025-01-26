@@ -64,8 +64,8 @@ public class BrokerService : IBrokerService
         var config = new ConsumerConfig
         {
             BootstrapServers = "localhost:51261",
-            GroupId          = "kafka-dotnet-getting-started",
-            AutoOffsetReset  = AutoOffsetReset.Earliest
+            GroupId = "kafka-dotnet-getting-started",
+            AutoOffsetReset = AutoOffsetReset.Earliest
         };
 
         var result = new List<string>();
@@ -77,7 +77,20 @@ public class BrokerService : IBrokerService
             {
                 try
                 {
-                    
+                    while (true)
+                    {
+                        var message = consumer.Consume(TimeSpan.FromMilliseconds(100));
+                        if (message == null)
+                        {
+                            break;
+                        }
+
+                        result.Add(message.Message.Value);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Failed to get messages: {e.Message}");
                 }
             }
             finally
